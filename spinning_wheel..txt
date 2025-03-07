@@ -1,0 +1,51 @@
+spinning_wheel.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinning Wheel Name Picker</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        .wheel-container { position: relative; width: 300px; height: 300px; margin: 20px auto; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 5px solid black; position: absolute; transition: transform 4s ease-out; }
+        .arrow { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 24px; color: red; }
+        button { padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; }
+        .result { margin-top: 20px; font-size: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Spinning Wheel Name Picker</h2>
+    <div class="wheel-container">
+        <div class="arrow">▼</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Color_Wheel.png/600px-Color_Wheel.png" class="wheel" id="wheel">
+    </div>
+
+    <button onclick="spinWheel()">Spin the Wheel</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        let names = ["Shanu", "Sinan", "Anshad", "Ziyad", "Chekku", "Rilu"];
+        let fixedPair = "Amnas & Fazil";  // Pre-set name
+
+        function spinWheel() {
+            let randomIndex = Math.floor(Math.random() * (names.length + 1)); // Extra space for fixed pair
+            let selectedName = randomIndex === names.length ? fixedPair : names[randomIndex];
+
+            let wheel = document.getElementById("wheel");
+            let resultDisplay = document.getElementById("result");
+
+            let spins = Math.floor(Math.random() * 5) + 5;  // Random spin count
+            let degrees = spins * 360 + randomIndex * (360 / (names.length + 1));
+
+            wheel.style.transform = `rotate(${degrees}deg)`;
+
+            setTimeout(() => {
+                resultDisplay.innerHTML = `Selected Name: ${selectedName}`;
+            }, 4000); // Show result after spin
+        }
+    </script>
+
+</body>
+</html>
